@@ -25,7 +25,7 @@ export function SiteFooter() {
       <div className="page-shell site-footer__bottom">
         <span>© {new Date().getFullYear()} Zaheer Lohar</span>
         <span>
-          Photography: <a href="https://unsplash.com/photos/performer-with-long-hair-and-mustache-sings-into-a-microphone-vH_jlRAddXI" target="_blank" rel="noreferrer">Max Ovcharenko</a> and <a href="https://unsplash.com/photos/singer-performing-on-stage-with-audience-recording-5uViRC7YoVg" target="_blank" rel="noreferrer">Les Taylor</a> / Unsplash · Video: <a href="https://www.pexels.com/video/a-man-singing-on-the-stage-9006072/" target="_blank" rel="noreferrer">Yan Krukau</a> / Pexels
+          Photography: <a href="https://unsplash.com/photos/performer-with-long-hair-and-mustache-sings-into-a-microphone-vH_jlRAddXI" target="_blank" rel="noreferrer">Max Ovcharenko</a> and <a href="https://unsplash.com/photos/singer-performing-on-stage-with-audience-recording-5uViRC7YoVg" target="_blank" rel="noreferrer">Les Taylor</a> / Unsplash
         </span>
       </div>
     </footer>

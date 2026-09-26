@@ -28,7 +28,7 @@ export function MotionRuntime({ children }) {
     gsap.ticker.lagSmoothing(0);
 
     const context = gsap.context(() => {
-      gsap.utils.toArray(".reveal").forEach((element) => {
+      gsap.utils.toArray(".reveal", rootRef.current).forEach((element) => {
         gsap.fromTo(
           element,
           { autoAlpha: 0, y: 20 },
@@ -45,9 +45,34 @@ export function MotionRuntime({ children }) {
           },
         );
       });
+
+      gsap.utils.toArray("[data-reveal-stagger]", rootRef.current).forEach((group) => {
+        const items = gsap.utils.toArray("[data-stagger-item]", group);
+        if (!items.length) return;
+
+        gsap.fromTo(
+          items,
+          { autoAlpha: 0, y: 24 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: group,
+              start: "top 88%",
+              once: true,
+            },
+          },
+        );
+      });
     }, rootRef);
 
+    const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+
     return () => {
+      window.cancelAnimationFrame(refreshFrame);
       context.revert();
       lenis.off("scroll", updateScrollTrigger);
       gsap.ticker.remove(updateScroll);

@@ -2,7 +2,8 @@ import { getImageProps } from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { ComingSoon } from "@/components/coming-soon";
+import { HomePageSections } from "@/components/home-page-sections";
+import { HomeHeroSocials } from "@/components/home-hero-socials";
 
 const bannerAlt = "Zaheer Lohar performing with a microphone beneath warm stage lights";
 
@@ -34,7 +35,11 @@ export default function Home() {
     <main>
       <section className="artist-hero" aria-labelledby="home-title">
         <picture className="artist-hero__picture">
-          <source media="(max-width: 640px)" srcSet={mobileBannerSrcSet} sizes="100vw" />
+          <source
+            media="(max-width: 900px) and (orientation: portrait), (max-width: 640px)"
+            srcSet={mobileBannerSrcSet}
+            sizes="100vw"
+          />
           <img
             {...desktopBannerProps}
             alt={bannerAlt}
@@ -61,10 +66,11 @@ export default function Home() {
               </Button>
               <Link className="text-link" href="/booking">Book a performance</Link>
             </div>
+            <HomeHeroSocials />
           </div>
         </div>
       </section>
-      <ComingSoon id="live" />
+      <HomePageSections />
     </main>
   );
 }
