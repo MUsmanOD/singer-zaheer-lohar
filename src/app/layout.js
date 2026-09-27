@@ -1,8 +1,5 @@
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { DM_Sans, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-import { MotionRuntime } from "@/components/motion-runtime";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,9 +11,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  weight: "400",
+const headingFont = DM_Sans({
+  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
@@ -27,22 +24,16 @@ export const metadata = {
     default: "Zaheer Lohar — Singer & Songwriter",
     template: "%s — Zaheer Lohar",
   },
-  description: "Singer and songwriter Zaheer Lohar. Explore live performances and book a show.",
+  description: "Singer and songwriter Zaheer Lohar. Explore songs, playlists, and performance booking.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${headingFont.variable} h-full antialiased`}
     >
-      <body   cz-shortcut-listen="true">
-        <MotionRuntime>
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-        </MotionRuntime>
-      </body>
+      <body className="min-h-full flex flex-col" cz-shortcut-listen="true">{children}</body>
     </html>
   );
 }
