@@ -10,6 +10,7 @@ import { PlaylistPreview } from "@/components/home/playlist-preview";
 import { PopularSongs } from "@/components/home/PopularSongs";
 import { HomeFollowSection } from "@/components/home/follow-section";
 import { SocialChannels } from "@/components/social/social-channels";
+import { createPageMetadata } from "@/lib/seo/site";
 
 const bannerAlt = "Zaheer Lohar performing with a microphone beneath warm stage lights";
 
@@ -31,10 +32,13 @@ const {
   sizes: "100vw",
 });
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Singer & Songwriter",
-  description: "Discover Zaheer Lohar’s songs, curated playlists, and the stories behind the music.",
-};
+  description: "Discover Zaheer Lohar’s Punjabi and Saraiki songs, music videos, curated playlists, and live performances.",
+  path: "/",
+  keywords: ["Zaheer Lohar official website", "folk singer from Lahore", "Punjabi singer songwriter", "live folk performances"],
+  imageAlt: "Zaheer Lohar performing beneath warm stage lights",
+});
 
 export default function Home() {
   return (

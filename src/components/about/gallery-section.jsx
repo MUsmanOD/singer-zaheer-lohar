@@ -13,7 +13,7 @@ const GALLERY_ITEMS = [
 export function GallerySection() {
   return <section className="about-gallery page-shell" aria-label="Zaheer Lohar photo gallery">
     <div className="about-gallery__grid">
-      {GALLERY_ITEMS.map(([src, alt], index) => <figure className={`about-gallery__item about-gallery__item--${index + 1}`} key={src}><Image src={`/images/gallery/${src}`} alt={alt} fill sizes="(max-width: 700px) 100vw, 25vw" /></figure>)}
+      {GALLERY_ITEMS.map(([src, alt], index) => <figure className={`about-gallery__item about-gallery__item--${index + 1}`} key={src}><Image className="about-gallery__image about-gallery__image--crop" src={`/images/gallery/${src}`} alt={alt} fill sizes="(max-width: 700px) 100vw, 25vw" /><Image className="about-gallery__image about-gallery__image--full" src={`/images/gallery/${src}`} alt="" aria-hidden="true" fill sizes="(max-width: 700px) 100vw, 25vw" /></figure>)}
     </div>
   </section>;
 }

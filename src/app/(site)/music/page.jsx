@@ -3,11 +3,15 @@ import { connectDb } from "@/lib/db/connection";
 import { getRandomPublicVideo } from "@/lib/services/playlist-manager";
 import { MusicLibrary } from "@/components/music/music-library";
 import { PlaylistImage } from "@/components/playlists/playlist-image";
+import { createPageMetadata } from "@/lib/seo/site";
 
-export const metadata = {
-  title: "Music",
-  description: "Explore songs and music videos from Zaheer Lohar’s catalogue.",
-};
+export const metadata = createPageMetadata({
+  title: "Zaheer Lohar Music",
+  description: "Listen to Zaheer Lohar’s latest Punjabi and Saraiki songs, official music videos, and releases from his music catalogue.",
+  path: "/music",
+  keywords: ["Zaheer Lohar songs", "Zaheer Lohar music videos", "latest Punjabi songs", "Saraiki folk songs", "Pakistani folk music"],
+  imageAlt: "Zaheer Lohar music catalogue",
+});
 
 export const dynamic = "force-dynamic";
 

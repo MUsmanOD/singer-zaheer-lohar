@@ -1,0 +1,14 @@
+{
+  "name": "Zaheer Lohar — Singer & Songwriter",
+  "short_name": "Zaheer Lohar",
+  "description": "The official website of Pakistani folk singer, songwriter, and performer Zaheer Lohar.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#191715",
+  "theme_color": "#191715",
+  "lang": "en-PK",
+  "icons": [
+    { "src": "/images/logo/logo.png", "sizes": "64x64", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

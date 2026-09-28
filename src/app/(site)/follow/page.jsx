@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { ArrowDown, ArrowRight, ArrowUpRight, Headphones, Heart, Music2, Sparkles } from "lucide-react";
 import { SocialChannels } from "@/components/social/social-channels";
+import { createPageMetadata } from "@/lib/seo/site";
 
-export const metadata = {
-  title: "Follow Along",
-  description: "Find Zaheer Lohar’s official social profiles and music channels.",
-};
+export const metadata = createPageMetadata({
+  title: "Follow Zaheer Lohar",
+  description: "Follow Zaheer Lohar’s official YouTube, Instagram, TikTok, Spotify, and social music channels.",
+  path: "/follow",
+  keywords: ["Zaheer Lohar social media", "Zaheer Lohar YouTube", "Zaheer Lohar Instagram", "follow Pakistani singer"],
+});
 
 export default function FollowPage() {
   return <main className="inner-page follow-page">

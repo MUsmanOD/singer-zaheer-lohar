@@ -1,11 +1,14 @@
 import { BookingForm } from "@/components/booking/booking-form";
 import { PageIntro } from "@/components/page-intro";
 import { Card, CardContent } from "@/components/ui/card";
+import { createPageMetadata } from "@/lib/seo/site";
 
-export const metadata = {
-  title: "Booking",
-  description: "Send a performance booking inquiry to Zaheer Lohar.",
-};
+export const metadata = createPageMetadata({
+  title: "Book Zaheer Lohar",
+  description: "Book Zaheer Lohar for live concerts, private celebrations, cultural events, and brand performances.",
+  path: "/booking",
+  keywords: ["book Zaheer Lohar", "Zaheer Lohar live performance booking", "Pakistani singer for events", "Lahore folk singer booking"],
+});
 
 const eventTypes = ["Live shows", "Private celebrations", "Brand collaborations"];
 

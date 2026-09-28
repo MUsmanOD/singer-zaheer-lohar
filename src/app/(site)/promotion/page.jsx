@@ -2,11 +2,14 @@ import { ArrowUpRight, Megaphone, ShieldCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { PromotionForm } from "@/components/promotion/promotion-form";
+import { createPageMetadata } from "@/lib/seo/site";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Promotion & Partnerships",
-  description: "Share a campaign, brand partnership, or music promotion inquiry with Zaheer Lohar’s team.",
-};
+  description: "Start a music promotion, release campaign, brand partnership, or content collaboration with Zaheer Lohar’s team.",
+  path: "/promotion",
+  keywords: ["Zaheer Lohar promotion", "Pakistani music promotion", "music brand partnership", "artist collaboration"],
+});
 
 export default function PromotionPage() {
   return <main className="inner-page promotion-page">

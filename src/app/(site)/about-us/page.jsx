@@ -3,11 +3,18 @@ import Image from "next/image";
 import { ArrowUpRight, Music2 } from "lucide-react";
 import { PageIntro } from "@/components/page-intro";
 import { GallerySection } from "@/components/about/gallery-section";
+import { createPageMetadata } from "@/lib/seo/site";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "About Zaheer Lohar",
-  description: "The official website of Zaheer Lohar, an international folk singer from Lahore, Pakistan. Discover Punjabi and Saraiki songs, videos, playlists, and performances.",
-};
+  description: "Learn about Zaheer Lohar, a Pakistani folk singer, songwriter, and performer from Lahore creating Punjabi and Saraiki music.",
+  path: "/about-us",
+  keywords: ["Zaheer Lohar biography", "about Zaheer Lohar", "PTV award holder singer", "Pakistani folk artist biography"],
+  image: "/images/aboutimage.png",
+  imageAlt: "Zaheer Lohar performing with his traditional instrument",
+  imageWidth: 1024,
+  imageHeight: 1536,
+});
 
 const WAVE_BARS = [18, 30, 42, 26, 54, 34, 64, 44, 28, 50, 70, 38, 24, 48, 60, 32, 22, 40, 56, 30, 18];
 
