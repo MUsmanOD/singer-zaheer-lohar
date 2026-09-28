@@ -17,24 +17,20 @@ function AnimatedAudience({ value, loading }) {
   const displayRef = useRef(initialValue);
 
   useEffect(() => {
-    const target = loading ? 2000 : Number(value);
-    if (!Number.isFinite(target)) return undefined;
-
     let frame;
     let cancelled = false;
 
     if (loading) {
-      const duration = 2600;
       const startedAt = performance.now();
 
       const tickLoading = (now) => {
-        const progress = Math.min((now - startedAt) / duration, 1);
-        const eased = 1 - ((1 - progress) ** 3);
-        const nextValue = Math.round(1 + ((2000 - 1) * eased));
-        displayRef.current = nextValue;
-        setDisplayValue(nextValue);
+        const nextValue = Math.max(1, Math.floor((now - startedAt) / 90) + 1);
+        if (nextValue !== displayRef.current) {
+          displayRef.current = nextValue;
+          setDisplayValue(nextValue);
+        }
 
-        if (progress < 1 && !cancelled) frame = requestAnimationFrame(tickLoading);
+        if (!cancelled) frame = requestAnimationFrame(tickLoading);
       };
 
       frame = requestAnimationFrame(tickLoading);
@@ -43,6 +39,9 @@ function AnimatedAudience({ value, loading }) {
         cancelAnimationFrame(frame);
       };
     }
+
+    const target = Number(value);
+    if (!Number.isFinite(target)) return undefined;
 
     const startValue = displayRef.current;
     const duration = 650;
@@ -64,7 +63,7 @@ function AnimatedAudience({ value, loading }) {
     };
   }, [loading, value]);
 
-  return formatAudience(displayValue);
+  return loading ? String(displayValue) : formatAudience(displayValue);
 }
 
 export function SocialChannels({ variant = "cards" }) {
