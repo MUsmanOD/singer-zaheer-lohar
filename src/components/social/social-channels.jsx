@@ -17,7 +17,7 @@ function AnimatedAudience({ value, loading }) {
   const displayRef = useRef(initialValue);
 
   useEffect(() => {
-    const target = loading ? 2000 : Number(value);
+    const target = loading ? 100000 : Number(value);
     if (!Number.isFinite(target)) return undefined;
 
     const startValue = displayRef.current;
