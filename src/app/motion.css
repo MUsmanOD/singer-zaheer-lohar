@@ -1,0 +1,31 @@
+/* Shared interaction polish. Transforms never affect document flow. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .motion-root :is(.playlist-hero__inner, .music-hero__inner) {
+    perspective: 1200px;
+  }
+
+  .motion-root :is(.latest-song-card, .popular-song-card, .home-playlist-card, .playlist-card, .playlist-video-card, .music-card, .event-card) {
+    transition: transform 360ms cubic-bezier(.2, .75, .25, 1), filter 360ms ease;
+  }
+
+  .motion-root :is(.latest-song-card, .popular-song-card, .home-playlist-card, .playlist-card, .playlist-video-card, .music-card, .event-card):is(:hover, :focus-within) {
+    transform: translate3d(0, -4px, 0);
+    filter: drop-shadow(0 12px 18px rgb(34 25 20 / 8%));
+  }
+
+  .motion-root :is(.playlist-hero-feature, .music-hero-feature) {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .motion-root :is(.playlist-hero-feature__copy, .music-hero-feature__copy, .playlist-hero-feature__badge, .music-hero-feature__badge) {
+    transform: translateZ(18px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-root :is(.latest-song-card, .popular-song-card, .home-playlist-card, .playlist-card, .playlist-video-card, .music-card, .event-card, .playlist-hero-feature, .music-hero-feature):is(:hover, :focus-within) {
+    transform: none !important;
+    filter: none !important;
+  }
+}

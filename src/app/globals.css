@@ -2602,6 +2602,99 @@
   justify-content: flex-start;
 }
 
+/* Keep the Home community cards in a contained, trackpad-friendly strip.
+   Desktop shows four cards at a time; mobile shows one card at a time. Any
+   remaining channels continue to the right without widening the page. */
+.home-follow .social-channel-grid {
+  --home-follow-gap: 14px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - (var(--home-follow-gap) * 3)) / 4);
+  grid-template-columns: none;
+  grid-template-rows: minmax(0, 1fr);
+  gap: var(--home-follow-gap);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 2px 2px 10px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  touch-action: pan-x pan-y;
+}
+
+.home-follow .social-channel-grid > * {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 701px) {
+  .home-follow .social-channel-grid {
+    scrollbar-width: none;
+  }
+
+  .home-follow .social-channel-grid::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .home-follow .social-channel-grid {
+    --home-follow-gap: 11px;
+    grid-auto-columns: 100%;
+    grid-template-rows: minmax(0, 1fr);
+  }
+}
+
+/* The final Home callout and About banner share the same responsive artwork. */
+.home-booking {
+  background-image: linear-gradient(90deg, rgb(5 12 12 / 88%) 0%, rgb(5 12 12 / 73%) 48%, rgb(5 12 12 / 38%) 100%), url("/images/newslatter.png");
+  background-position: center 43%;
+  background-size: cover;
+}
+
+.about-page .page-intro {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: none;
+  padding-right: max(32px, calc((100% - 1200px) / 2));
+  padding-left: max(32px, calc((100% - 1200px) / 2));
+  background-image: linear-gradient(90deg, rgb(3 9 9 / 91%) 0%, rgb(3 9 9 / 72%) 48%, rgb(3 9 9 / 23%) 100%), url("/images/newslatter.png");
+  background-position: center 43%;
+  background-size: cover;
+}
+
+.about-page .page-intro > * {
+  position: relative;
+  z-index: 1;
+}
+
+.about-page .page-intro .eyebrow {
+  color: #e4bd8b;
+}
+
+.about-page .page-intro h1 {
+  max-width: 650px;
+  color: #fff;
+}
+
+.about-page .page-intro__description {
+  color: rgb(255 255 255 / 75%);
+}
+
+@media (max-width: 640px) {
+  .home-booking {
+    background-image: linear-gradient(180deg, rgb(5 12 12 / 89%) 0%, rgb(5 12 12 / 67%) 53%, rgb(5 12 12 / 48%) 100%), url("/images/newslatter-mobile.png");
+    background-position: center 42%;
+  }
+
+  .about-page .page-intro {
+    padding-right: 20px;
+    padding-left: 20px;
+    background-image: linear-gradient(180deg, rgb(3 9 9 / 91%) 0%, rgb(3 9 9 / 66%) 53%, rgb(3 9 9 / 42%) 100%), url("/images/newslatter-mobile.png");
+    background-position: center 42%;
+  }
+}
+
 .form-select-trigger {
   min-height: 44px;
   width: 100%;

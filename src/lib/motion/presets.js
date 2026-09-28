@@ -1,0 +1,31 @@
+// Motion targets and timings live here so page components keep their existing markup.
+export const REVEAL_PRESETS = [
+  {
+    selector: ".artist-hero__copy, .playlist-hero__copy, .music-hero__copy, .follow-hero__copy, .page-intro",
+    from: { autoAlpha: 0, y: 24 },
+    duration: 0.9,
+  },
+  {
+    selector: ".playlist-hero-feature, .music-hero-feature, .playlist-hero-art, .music-hero-art, .follow-hero__visual, .playlist-detail-cover, .about-story__art, .home-about__mark",
+    from: { autoAlpha: 0, y: 28, scale: 0.975, rotationX: 4 },
+    duration: 0.95,
+  },
+  {
+    selector: ".section-heading, .home-about__copy, .home-awards__heading, .home-awards__note, .home-section-heading, .follow-section__heading, .music-library__toolbar, .playlist-section-heading, .playlist-detail-copy, .about-story__copy, .booking-page__aside, .booking-page__form, .promotion-aside, .promotion-form-wrap, .follow-page__closer, .home-booking__copy, .home-booking__action, .site-footer__main",
+    from: { autoAlpha: 0, y: 22 },
+    duration: 0.8,
+  },
+  {
+    selector: ".latest-song-card, .popular-song-card, .home-playlist-card, .social-channel-card, .playlist-card, .playlist-video-card, .music-card, .event-card",
+    from: { autoAlpha: 0, y: 24, scale: 0.985 },
+    duration: 0.75,
+    stagger: 0.055,
+  },
+  {
+    selector: ".reveal",
+    from: { autoAlpha: 0, y: 20 },
+    duration: 0.75,
+  },
+];
+
+export const DEPTH_SELECTOR = ".playlist-hero-feature, .music-hero-feature";
