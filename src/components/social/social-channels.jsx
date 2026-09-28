@@ -17,13 +17,37 @@ function AnimatedAudience({ value, loading }) {
   const displayRef = useRef(initialValue);
 
   useEffect(() => {
-    const target = loading ? 10000000000 : Number(value);
+    const target = loading ? 2000 : Number(value);
     if (!Number.isFinite(target)) return undefined;
 
-    const startValue = displayRef.current;
-    const duration = loading ? 850 : 650;
-    const startedAt = performance.now();
     let frame;
+    let cancelled = false;
+
+    if (loading) {
+      const duration = 850;
+      let startedAt = performance.now();
+
+      const tickLoading = (now) => {
+        const progress = Math.min((now - startedAt) / duration, 1);
+        const eased = 1 - ((1 - progress) ** 3);
+        const nextValue = Math.round(1 + ((2000 - 1) * eased));
+        displayRef.current = nextValue;
+        setDisplayValue(nextValue);
+
+        if (progress >= 1) startedAt = now;
+        if (!cancelled) frame = requestAnimationFrame(tickLoading);
+      };
+
+      frame = requestAnimationFrame(tickLoading);
+      return () => {
+        cancelled = true;
+        cancelAnimationFrame(frame);
+      };
+    }
+
+    const startValue = displayRef.current;
+    const duration = 650;
+    const startedAt = performance.now();
 
     const tick = (now) => {
       const progress = Math.min((now - startedAt) / duration, 1);
@@ -31,11 +55,14 @@ function AnimatedAudience({ value, loading }) {
       const nextValue = Math.round(startValue + ((target - startValue) * eased));
       displayRef.current = nextValue;
       setDisplayValue(nextValue);
-      if (progress < 1) frame = requestAnimationFrame(tick);
+      if (progress < 1 && !cancelled) frame = requestAnimationFrame(tick);
     };
 
     frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(frame);
+    };
   }, [loading, value]);
 
   return formatAudience(displayValue);
