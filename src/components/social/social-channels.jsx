@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Users } from "lucide-react";
 import { SocialBrandIcon } from "@/components/icons/social-brand-icon";
 import { apiRequest } from "@/lib/api/client";
@@ -9,6 +9,36 @@ import { SOCIAL_CHANNELS } from "@/lib/social-links";
 
 function formatAudience(value) {
   return new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(value);
+}
+
+function AnimatedAudience({ value, loading }) {
+  const initialValue = loading ? 1 : Number(value) || 0;
+  const [displayValue, setDisplayValue] = useState(initialValue);
+  const displayRef = useRef(initialValue);
+
+  useEffect(() => {
+    const target = loading ? 2000 : Number(value);
+    if (!Number.isFinite(target)) return undefined;
+
+    const startValue = displayRef.current;
+    const duration = loading ? 850 : 650;
+    const startedAt = performance.now();
+    let frame;
+
+    const tick = (now) => {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - ((1 - progress) ** 3);
+      const nextValue = Math.round(startValue + ((target - startValue) * eased));
+      displayRef.current = nextValue;
+      setDisplayValue(nextValue);
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [loading, value]);
+
+  return formatAudience(displayValue);
 }
 
 export function SocialChannels({ variant = "cards" }) {
@@ -28,13 +58,16 @@ export function SocialChannels({ variant = "cards" }) {
   });
 
   if (variant === "hero") {
-    if (links === null || !channels.length) return null;
+    if (links !== null && !channels.length) return null;
+    const heroChannels = links === null
+      ? SOCIAL_CHANNELS.slice(0, 4).map((channel) => ({ ...channel, url: null, followers: null, loading: true }))
+      : channels.slice(0, 4);
     return <div className="hero-social" aria-label="Follow Zaheer Lohar">
       <span className="hero-social__label">Follow the music</span>
       <div className="hero-social__links">
-        {channels.slice(0, 4).map((channel) => <a key={channel.key} href={channel.url} target="_blank" rel="noopener noreferrer" data-platform={channel.key} aria-label={`Follow Zaheer on ${channel.label}`}>
+        {heroChannels.map((channel) => <a key={channel.key} href={channel.url || "/follow"} target={channel.url ? "_blank" : undefined} rel={channel.url ? "noopener noreferrer" : undefined} data-platform={channel.key} aria-label={`Follow Zaheer on ${channel.label}`}>
           <SocialBrandIcon platform={channel.key} size={16} />
-          <span>{channel.followers !== null && channel.followers !== undefined ? <><strong>{formatAudience(channel.followers)}</strong><small>{channel.countLabel.toLowerCase()}</small></> : <strong>{channel.label}</strong>}</span>
+          <span>{channel.loading || (channel.followers !== null && channel.followers !== undefined) ? <><strong><AnimatedAudience value={channel.followers} loading={channel.loading} /></strong><small>{channel.countLabel.toLowerCase()}</small></> : <strong>{channel.label}</strong>}</span>
         </a>)}
         <Link href="/follow" className="hero-social__all">All channels <ArrowUpRight size={13} /></Link>
       </div>

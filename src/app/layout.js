@@ -26,6 +26,9 @@ export const metadata = {
     template: "%s — Zaheer Lohar",
   },
   description: "Singer and songwriter Zaheer Lohar. Explore songs, playlists, and performance booking.",
+  verification: {
+    google: "htXX3gt7vmS4qlaa1lY8a8-u-egd3MvN9uihJtH3tYs",
+  },
 };
 
 export default function RootLayout({ children }) {
