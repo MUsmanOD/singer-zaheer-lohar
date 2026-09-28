@@ -24,8 +24,8 @@ function AnimatedAudience({ value, loading }) {
     let cancelled = false;
 
     if (loading) {
-      const duration = 850;
-      let startedAt = performance.now();
+      const duration = 2600;
+      const startedAt = performance.now();
 
       const tickLoading = (now) => {
         const progress = Math.min((now - startedAt) / duration, 1);
@@ -34,8 +34,7 @@ function AnimatedAudience({ value, loading }) {
         displayRef.current = nextValue;
         setDisplayValue(nextValue);
 
-        if (progress >= 1) startedAt = now;
-        if (!cancelled) frame = requestAnimationFrame(tickLoading);
+        if (progress < 1 && !cancelled) frame = requestAnimationFrame(tickLoading);
       };
 
       frame = requestAnimationFrame(tickLoading);
