@@ -13,7 +13,7 @@ export function HomeFollowSection() {
       </div>
       <Link href="/follow" aria-label="See all social channels"><ArrowDown size={17} /></Link>
     </div>
-    <SocialChannels />
+    <SocialChannels autoScroll animateCounts />
     <Link className="home-follow__more" href="/follow">Explore all channels <ArrowUpRight size={14} /></Link>
   </section>;
 }

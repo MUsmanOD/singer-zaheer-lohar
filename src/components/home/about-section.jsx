@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Music2 } from "lucide-react";
+import { ArrowUpRight, Award, Music2 } from "lucide-react";
 
 export function AboutSection() {
   return <section className="home-about" aria-labelledby="home-about-title"><div className="page-shell home-about__layout">
-    <div className="home-about__mark"><Image src="/images/logo/logo.png" alt="" width={160} height={160} sizes="(max-width: 700px) 88px, 142px" /><Music2 size={21} aria-hidden="true" /></div>
-    <div className="home-about__copy"><p className="eyebrow">A little about the artist</p><h2 id="home-about-title">Music made to feel close.</h2><p>Zaheer Lohar is a singer, songwriter, and performer. This is a place to discover the songs, live moments, and stories that bring the music to life.</p><Link href="/about-us">More about Zaheer <ArrowUpRight size={15} /></Link></div>
-    <span className="home-about__index">01 — ABOUT</span>
+    <div className="home-about__media"><div className="home-about__portrait home-about__portrait--main"><Image src="/images/about/about 1.png" alt="Zaheer Lohar performing with his traditional instrument" fill sizes="(max-width: 700px) 64vw, 23vw" /></div><div className="home-about__portrait home-about__portrait--accent"><Image src="/images/about/about 3.jpeg" alt="Zaheer Lohar performing in traditional dress" fill sizes="(max-width: 700px) 30vw, 11vw" /></div><div className="home-about__portrait home-about__portrait--detail"><Image src="/images/about/about 2.jpeg" alt="Zaheer Lohar in a close portrait" fill sizes="(max-width: 700px) 40vw, 15vw" /></div><span className="home-about__media-badge"><Award size={14} /> PTV award holder</span><div className="home-about__media-caption"><span><Music2 size={15} /></span><div><small>Punjabi folk · live performance</small><strong>Zaheer Lohar</strong></div></div></div>
+    <div className="home-about__copy"><p className="eyebrow">The artist behind the songs</p><h2 id="home-about-title">A voice rooted in tradition.</h2><p>Zaheer Lohar is a Pakistani folk singer, songwriter, and performer from Lahore. His Punjabi and Saraiki songs carry stories of love, life, and home into music videos, live performances, and a growing global audience.</p><div className="home-about__facts" aria-label="Zaheer Lohar highlights"><div><strong>PTV</strong><span>Award holder</span></div><div><strong>1M+</strong><span>YouTube subscribers</span></div><div><strong>Punjabi</strong><span>&amp; Saraiki folk</span></div></div><Link href="/about-us">Read Zaheer&apos;s story <ArrowUpRight size={15} /></Link></div>
   </div></section>;
 }

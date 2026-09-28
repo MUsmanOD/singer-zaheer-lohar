@@ -10,6 +10,9 @@ import { DEPTH_SELECTOR, REVEAL_PRESETS } from "@/lib/motion/presets";
 gsap.registerPlugin(ScrollTrigger);
 
 const REVEAL_SELECTOR = REVEAL_PRESETS.map(({ selector }) => selector).join(", ");
+const HEADING_SELECTOR = "h1, h2, h3, h4, h5, h6";
+const LETTER_TARGET_SELECTOR = "[data-letter], .heading-letter";
+const NO_HEADING_MOTION_SELECTOR = ".playlist-card__title-row h2, .playlist-video-card__copy h3, .playlist-detail-copy h1, .latest-song-card__copy h3, .popular-song-card__copy h3, .home-playlist-card__copy h3, .music-card__copy h2";
 
 function siblingDelay(element, stagger = 0) {
   if (!stagger || !element.parentElement) return 0;
@@ -29,6 +32,7 @@ function setupMotion(root) {
   }
 
   function reveal(element) {
+    if (element.matches(NO_HEADING_MOTION_SELECTOR)) return;
     const preset = REVEAL_PRESETS.find(({ selector }) => element.matches(selector));
     if (!preset) return;
     const tween = gsap.fromTo(element, startingState(preset), {
@@ -46,6 +50,50 @@ function setupMotion(root) {
       },
     });
     activeTweens.add(tween);
+    if (element.matches(HEADING_SELECTOR)) {
+      element.querySelectorAll(LETTER_TARGET_SELECTOR).forEach((letter, index) => {
+        const letterTween = gsap.fromTo(letter, { autoAlpha: 0, y: "45%" }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.52,
+          delay: 0.16 + Math.min(index, 28) * 0.028,
+          ease: "power3.out",
+          overwrite: "auto",
+          onComplete: () => {
+            activeTweens.delete(letterTween);
+            gsap.set(letter, { clearProps: "opacity,visibility,transform,willChange" });
+          },
+        });
+        activeTweens.add(letterTween);
+        motionTargets.add(letter);
+      });
+    }
+  }
+
+  function prepareHeading(element) {
+    if (element.dataset.headingLetters === "true" && element.dataset.headingText === element.textContent) return;
+    element.querySelectorAll(".heading-letter").forEach((letter) => letter.replaceWith(document.createTextNode(letter.textContent || "")));
+    const originalText = element.textContent || "";
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.textContent?.trim()) textNodes.push(node);
+    }
+    textNodes.forEach((textNode) => {
+      const fragment = document.createDocumentFragment();
+      Array.from(textNode.textContent || "").forEach((character) => {
+        const letter = document.createElement("span");
+        letter.className = "heading-letter";
+        letter.dataset.letter = "true";
+        letter.textContent = character === " " ? "\u00a0" : character;
+        fragment.appendChild(letter);
+      });
+      textNode.replaceWith(fragment);
+    });
+    if (!element.getAttribute("aria-label")) element.setAttribute("aria-label", originalText);
+    element.dataset.headingLetters = "true";
+    element.dataset.headingText = element.textContent;
   }
 
   const observer = new IntersectionObserver((entries) => {
@@ -83,6 +131,8 @@ function setupMotion(root) {
 
   function register(element) {
     if (!(element instanceof HTMLElement)) return;
+    if (element.matches(NO_HEADING_MOTION_SELECTOR)) return;
+    if (element.matches(HEADING_SELECTOR)) prepareHeading(element);
     if (element.matches(REVEAL_SELECTOR) && !registered.has(element)) {
       registered.add(element);
       motionTargets.add(element);

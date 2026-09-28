@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { AboutSection } from "@/components/home/about-section";
-import { AwardsSection } from "@/components/home/awards-section";
+import { ArtistFeatureSection } from "@/components/home/artist-feature-section";
 import { BookingCallout } from "@/components/home/booking-callout";
 import { LatestSongs } from "@/components/home/latest-songs";
 import { PlaylistPreview } from "@/components/home/playlist-preview";
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
       </section>
       <AboutSection />
-      <AwardsSection />
+      <ArtistFeatureSection />
       <LatestSongs />
       <PopularSongs />
       <HomeFollowSection />
